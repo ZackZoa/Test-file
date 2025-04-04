@@ -4,22 +4,12 @@ const canvas = document.querySelector('canvas')
     canvas.width = 64 * 16 //1024
     canvas.height = 64 * 9 //576
 
-    class Sprite {
-      constructor ({position}) {
-        this.position = position
-        this.image = new Image()
-        this.image.src = './image/backgroundLevel1.png'
-      }
-      draw() {
-        c.drawImage(this.image, this.position.x, this.position.y)
-      }
-    }
-
   const backgroundLevel1 = new Sprite ({
     position: {
       x: 0,
       y: 0,
-    }
+    },
+    imageSrc: 'img/backgroundLevel1.png'
   })
 
   const player = new Player()
