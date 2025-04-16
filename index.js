@@ -1,42 +1,47 @@
-const canvas = document.querySelector('canvas')
-    const c = canvas.getContext('2d')
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
 
-    canvas.width = 64 * 16 //1024
-    canvas.height = 64 * 9 //576
+canvas.width = 64 * 16; // 1024
+canvas.height = 64 * 9; // 576
 
-  const backgroundLevel1 = new Sprite ({
-    position: {
-      x: 0,
-      y: 0,
-    },
-    imageSrc: 'img/backgroundLevel1.png'
-  })
+const backgroundLevel1 = new Sprite({
+  position: { x: 0, y: 0 },
+  imageSrc: 'img/backgroundLevel1.png',
+});
 
-  const player = new Player()
+const player = new Player();
 
-  const keys = {
-    w: {
-      pressed: false,
-    },
-    a: {
-      pressed: false,
-    },
-    d: {
-      pressed: false,
-    },
+// Define blocks (you can add more blocks here)
+const blocks = [
+  new Block({ position: { x: 300, y: 500 }, width: 100, height: 20 }),
+  new Block({ position: { x: 400, y: 350 }, width: 100, height: 20 }),
+  new Block({ position: { x: 600, y: 300 }, width: 100, height: 20 }),
+  // Add more blocks as needed
+];
 
-  }
-  function animate() {
-     window.requestAnimationFrame(animate)
+const keys = {
+  w: { pressed: false },
+  a: { pressed: false },
+  d: { pressed: false },
+};
 
-     backgroundLevel1.draw()
+function animate() {
+  window.requestAnimationFrame(animate);
 
-      player.velocity.x = 0
-      if (keys.d.pressed) player.velocity.x = 5
-      else if (keys.a.pressed) player.velocity.x = -5
+  backgroundLevel1.draw();
 
-      player.draw()
-      player.update()
+  player.velocity.x = 0;
+  if (keys.d.pressed) player.velocity.x = 5;
+  else if (keys.a.pressed) player.velocity.x = -5;
+
+  player.draw();
+  player.update();
+
+  // Draw the blocks
+  blocks.forEach(block => block.draw());
+
+  // Check for collisions between player and blocks
+  checkCollisions(player, blocks);
 }
 
-animate()
+animate();
